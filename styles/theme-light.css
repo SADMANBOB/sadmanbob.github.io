@@ -1,0 +1,114 @@
+/*
+ * Light theme for C&G Inspections.
+ * Define colour variables and shared styles for a clean, professional look.
+ */
+
+:root {
+  --background-color: #ffffff;
+  --primary-color: #0B2A4A; /* deep navy */
+  --text-color: #0B2A4A;
+  --accent-color: #D9A441; /* warm gold */
+  --section-bg: #f7f7f7;
+  --border-radius: 8px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+header, footer {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1, footer p {
+  margin: 0;
+  font-weight: 600;
+}
+
+section {
+  padding: 40px 20px;
+}
+
+section.alt {
+  background-color: var(--section-bg);
+}
+
+h2 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+h3 {
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+p {
+  margin: 0 0 15px;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+ul {
+  padding-left: 20px;
+  margin: 0 0 15px;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+.cta-button:hover {
+  background-color: #c19136; /* slightly darker gold */
+}
+
+.value-boxes {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.value-box {
+  flex: 1;
+  text-align: center;
+  background-color: var(--section-bg);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.value-box img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 12px;
+}
+
+.service-cards .card {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+form label {
+  font-weight: 600;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+}
