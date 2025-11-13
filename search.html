@@ -100,7 +100,7 @@
       field.focus();
     });
   });
-});</script></div></div><button class="search__btn btn--icon js-search-btn" aria-label="Search"><svg height="18" width="18" role="presentation" focusable="false"><use xlink:href="https://sadmanbob.github.io/assets/svg/svg-map.svg#search"/></svg></button></div></header><main class="page page--search"><div class="content search-page"><div class="hero hero--noimage"><header class="hero__content"><div class="wrapper"><h1>Search</h1></div></header></div><div class="entry-wrapper content__entry"><div class="cg-search-top"><h2>Search Results</h2><p class="cg-search-sub">Here’s what we found related to your search. If you don’t see what you’re looking for, feel free to reach out anytime.</p></div><style>/* Page header inside search results */
+});</script></div></div><button class="search__btn btn--icon js-search-btn" aria-label="Search"><svg height="18" width="18" role="presentation" focusable="false"><use xlink:href="https://sadmanbob.github.io/assets/svg/svg-map.svg#search"/></svg></button></div></header><main class="page page--search"><div class="content search-page"><div class="hero hero--noimage"><header class="hero__content"><div class="wrapper"><h1>Search</h1></div></header></div><div class="entry-wrapper content__entry"><div class="cg-search-top"><h2>Search Results</h2><p class="cg-search-sub" id="cg-search-summary">Here’s what we found related to your search.</p><div class="cg-search-controls"><div class="cg-sort-group" aria-label="Sort search results"><span class="cg-sort-label">Sort by:</span> <button type="button" class="cg-sort-button active" data-sort="relevance">Relevance</button> <button type="button" class="cg-sort-button" data-sort="newest">Newest</button></div><div class="cg-search-popular"><span class="cg-popular-label">Popular searches:</span> <button type="button" class="cg-search-chip-result" data-query="pricing">Pricing</button> <button type="button" class="cg-search-chip-result" data-query="what we inspect">What we inspect</button> <button type="button" class="cg-search-chip-result" data-query="sample report">Sample report</button> <button type="button" class="cg-search-chip-result" data-query="Riverside County">Riverside County</button></div></div></div><style>/* Header area at top of search results */
 .cg-search-top {
   padding: 20px 0 10px;
   border-bottom: 1px solid rgba(217,164,65,0.2);
@@ -120,7 +120,87 @@
   font-size: 1rem;
 }
 
-/* Style each search result container */
+/* Controls row: sort + popular searches */
+.cg-search-controls {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cg-sort-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cg-sort-label {
+  font-size: 0.9rem;
+  color: #CED4DA;
+}
+
+.cg-sort-button {
+  background: #091C33;
+  color: #E9ECEF;
+  border-radius: 999px;
+  padding: 4px 12px;
+  border: 1px solid rgba(217,164,65,0.7);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.cg-sort-button.active {
+  background: #D9A441;
+  color: #0B2A4A;
+}
+
+.cg-sort-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Popular search chips */
+.cg-search-popular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.cg-popular-label {
+  font-size: 0.85rem;
+  color: #CED4DA;
+}
+
+.cg-search-chip-result {
+  border: none;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  background: #091C33;
+  color: #E9ECEF;
+  cursor: pointer;
+  border: 1px solid rgba(217,164,65,0.4);
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.cg-search-chip-result:hover {
+  background: #D9A441;
+  color: #0B2A4A;
+  transform: translateY(-1px);
+}
+
+/* Highlight for matched search terms */
+.cg-search-highlight {
+  background: rgba(255,192,116,0.25);
+  color: #FFE0A6;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Style each search result card */
 .search__item {
   background: #091C33 !important;
   border: 1px solid rgba(217,164,65,0.25) !important;
@@ -152,7 +232,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Call/Text outreach box */
+/* Call/Text outreach box below results */
 .cg-search-helpbox {
   margin-top: 25px;
   padding: 18px;
@@ -185,7 +265,125 @@
 }
 .cg-search-helpbox a:hover {
   background: #FFC074;
-}</style><div class="cg-search-helpbox"><h3>Didn’t find what you were searching for?</h3><p>I can answer questions about pricing, reports, service areas, or what’s included in an inspection.</p><a href="tel:+13105056581">📞 Call</a> <a href="sms:+13105056581">💬 Text</a></div></div></div></main><footer class="footer"><div class="wrapper"><div class="footer__copyright"><footer class="cg-footer"><div class="footer-wrap"><div class="footer-left"><img class="footer-logo" src="/media/logo-cg.png" alt="C&amp;G Certified Home Inspector"><p>© 2025 C&amp;G Certified Home Inspector — Inspecting with Integrity</p></div><div class="footer-right"><a href="tel:+13105056581">📞 (310) 505-6581</a> <a href="sms:+13105056581">💬 Text Us</a> <a href="mailto:Coastalcbms@aol.com">✉️ Email Us</a></div></div></footer></div><button id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg width="20" height="20"><use xlink:href="https://sadmanbob.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></div></footer><script defer="defer" src="https://sadmanbob.github.io/assets/js/scripts.min.js?v=ffcbea6c02c8178d10092962b235a5b0"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
+}
+
+/* Mobile tweaks */
+@media (max-width: 700px) {
+  .cg-search-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cg-search-popular {
+    margin-top: 4px;
+  }
+}</style><div class="cg-search-helpbox"><h3>Didn’t find what you were searching for?</h3><p>I can answer questions about pricing, reports, service areas, or what’s included in an inspection.</p><a href="tel:+13105056581">📞 Call</a> <a href="sms:+13105056581">💬 Text</a></div><script>document.addEventListener('DOMContentLoaded', function () {
+  // --- Utility helpers ---
+  function escapeHTML(str) {
+    return (str || "").replace(/[&<>"']/g, function (m) {
+      return ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      })[m];
+    });
+  }
+
+  function escapeRegex(str) {
+    return (str || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  // --- Get query from URL ---
+  var params = new URLSearchParams(window.location.search);
+  var query = params.get('q') || params.get('s') || "";
+
+  // Update header summary
+  var summary = document.getElementById('cg-search-summary');
+  if (summary && query) {
+    summary.innerHTML =
+      'Showing results for <strong>"' + escapeHTML(query) +
+      '"</strong>. Use the sort options or try a popular search.';
+  }
+
+  // --- Highlight query in titles and excerpts ---
+  if (query) {
+    var regex = new RegExp("(" + escapeRegex(query) + ")", "ig");
+    document.querySelectorAll(".search__item-title, .search__item-excerpt")
+      .forEach(function (el) {
+        var original = el.innerHTML;
+        el.innerHTML = original.replace(regex,
+          '<mark class="cg-search-highlight">$1</mark>');
+      });
+  }
+
+  // --- Sort controls (Relevance / Newest) ---
+  var resultsContainer =
+    document.querySelector(".search__results") ||
+    document.querySelector(".search__list") ||
+    document.querySelector(".content");
+
+  var items = resultsContainer
+    ? Array.prototype.slice.call(resultsContainer.querySelectorAll(".search__item"))
+    : [];
+
+  var originalOrder = items.slice();
+
+  function sortByRelevance() {
+    if (!resultsContainer) return;
+    originalOrder.forEach(function (el) {
+      resultsContainer.appendChild(el);
+    });
+  }
+
+  function sortByNewest() {
+    if (!resultsContainer) return;
+    var sorted = items.slice().sort(function (a, b) {
+      var ta = a.querySelector("time");
+      var tb = b.querySelector("time");
+      var da = ta ? Date.parse(ta.getAttribute("datetime") || ta.textContent) : 0;
+      var db = tb ? Date.parse(tb.getAttribute("datetime") || tb.textContent) : 0;
+      return db - da; // newest first
+    });
+    sorted.forEach(function (el) {
+      resultsContainer.appendChild(el);
+    });
+  }
+
+  document.querySelectorAll(".cg-sort-button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var mode = this.getAttribute("data-sort");
+      document.querySelectorAll(".cg-sort-button")
+        .forEach(function (b) { b.classList.remove("active"); });
+      this.classList.add("active");
+
+      if (mode === "newest") {
+        sortByNewest();
+      } else {
+        sortByRelevance();
+      }
+    });
+  });
+
+  // --- Popular search chips: auto-fill & submit ---
+  var searchField =
+    document.querySelector('input[type="search"]') ||
+    document.querySelector('.search__field') ||
+    document.querySelector('#search');
+
+  document.querySelectorAll(".cg-search-chip-result").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      if (!searchField) return;
+      var q = this.getAttribute("data-query") || this.textContent.trim();
+      searchField.value = q;
+      if (searchField.form) {
+        searchField.form.submit();
+      } else {
+        searchField.focus();
+      }
+    });
+  });
+});</script></div></div></main><footer class="footer"><div class="wrapper"><div class="footer__copyright"><footer class="cg-footer"><div class="footer-wrap"><div class="footer-left"><img class="footer-logo" src="/media/logo-cg.png" alt="C&amp;G Certified Home Inspector"><p>© 2025 C&amp;G Certified Home Inspector — Inspecting with Integrity</p></div><div class="footer-right"><a href="tel:+13105056581">📞 (310) 505-6581</a> <a href="sms:+13105056581">💬 Text Us</a> <a href="mailto:Coastalcbms@aol.com">✉️ Email Us</a></div></div></footer></div><button id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg width="20" height="20"><use xlink:href="https://sadmanbob.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></div></footer><script defer="defer" src="https://sadmanbob.github.io/assets/js/scripts.min.js?v=ffcbea6c02c8178d10092962b235a5b0"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
         for (var i = 0; i < images.length; i++) {
             if (images[i].complete) {
                 images[i].classList.add('is-loaded');

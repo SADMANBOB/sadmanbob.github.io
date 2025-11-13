@@ -148,27 +148,61 @@
 .service a.btn:hover {
   background: #FFD06B;
   color: #0B2A4A;
-}</style></div><div><hr style="margin:2em 0;border-color:#123b64;opacity:0.6;"><p style="text-align:center;"><a class="button" href="tel:+13105056581">Call (310) 505-6581</a> <a class="button" href="sms:+13105056581">Text Us</a> <a class="button" href="mailto:Coastalcbms@aol.com">Email</a></p></div></div><footer class="content__footer"><div class="entry-wrapper"><div class="content__actions"><p class="content__updated">This article was updated on November 12, 2025</p></div></div></footer></article><div class="banner banner--after-content"><div class="wrapper"><script>// smooth scroll for internal links
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: "smooth"
+}</style></div><div><hr style="margin:2em 0;border-color:#123b64;opacity:0.6;"><p style="text-align:center;"><a class="button" href="tel:+13105056581">Call (310) 505-6581</a> <a class="button" href="sms:+13105056581">Text Us</a> <a class="button" href="mailto:Coastalcbms@aol.com">Email</a></p></div></div><footer class="content__footer"><div class="entry-wrapper"><div class="content__actions"><p class="content__updated">This article was updated on November 12, 2025</p></div></div></footer></article><div class="banner banner--after-content"><div class="wrapper"><script>// ======================================================
+//  Smooth scrolling + Fade-in on scroll
+// ======================================================
+document.addEventListener('DOMContentLoaded', function () {
+  // --- Smooth scroll for internal links ---
+  const headerOffset = 80; // tweak if your header is taller/shorter
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+
+      const rect = target.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const offsetTop = rect.top + scrollTop - headerOffset;
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
     });
   });
-});
 
-// fade in elements on scroll
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add("fade-in");
-  });
-});
-document.querySelectorAll(".service, .faq-item, .card, img").forEach(el => {
-  observer.observe(el);
-});</script><script>// ---- Simple Inspection Q&A Brain ----
+  // --- Fade in elements on scroll ---
+  const fadeTargets = document.querySelectorAll(
+    '.page-content .service, .page-content .faq-item, .page-content .card, .page-content img'
+  );
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeTargets.forEach(el => observer.observe(el));
+  } else {
+    // Fallback for older browsers
+    fadeTargets.forEach(el => el.classList.add('fade-in'));
+  }
+});</script><script>// ======================================================
+//  Simple Inspection Q&A Brain + Chat UI wiring
+// ======================================================
+
+// ---- Simple Inspection Q&A Brain ----
 function cgGetInspectionAnswer(message) {
-  const text = message.toLowerCase();
+  const text = (message || "").toLowerCase();
 
   // Pricing / cost
   if (text.includes("price") || text.includes("cost") || text.includes("how much") || text.includes("fee")) {
@@ -181,13 +215,17 @@ function cgGetInspectionAnswer(message) {
   }
 
   // Same-day report / timing
-  if (text.includes("report") || text.includes("how long") || text.includes("when do i get") || text.includes("turnaround")) {
+  if (text.includes("report") || text.includes("how long") || text.includes("when do i get") || text.includes("turnaround") || text.includes("results")) {
     return "In most cases, you’ll receive a clear, photo-rich digital report the same day as the inspection, usually within a few hours.";
   }
 
   // Area served
-  if (text.includes("area") || text.includes("where") || text.includes("service area") || text.includes("locations") || text.includes("compton") || text.includes("la")) {
-    return "I primarily serve Compton and the greater Los Angeles area, including nearby cities in LA County. If you’re not sure if your property is covered, send the address and I’ll confirm.";
+  if (
+    text.includes("area") || text.includes("where") || text.includes("service area") ||
+    text.includes("locations") || text.includes("compton") || text.includes("la") ||
+    text.includes("riverside")
+  ) {
+    return "I primarily serve Compton, the greater Los Angeles area, and Riverside County. If you’re not sure if your property is covered, send the address and I’ll confirm.";
   }
 
   // How to book
@@ -215,49 +253,74 @@ function cgGetInspectionAnswer(message) {
 }
 
 // ---- UI Wiring ----
-(function() {
-  const widget   = document.getElementById("cg-chat-widget");
-  const toggle   = document.getElementById("cg-chat-toggle");
-  const windowEl = document.getElementById("cg-chat-window");
-  const closeBtn = document.getElementById("cg-chat-close");
-  const form     = document.getElementById("cg-chat-form");
-  const input    = document.getElementById("cg-chat-input");
-  const messages = document.getElementById("cg-chat-messages");
+(function initCgChat() {
+  function wireChat() {
+    const widget   = document.getElementById("cg-chat-widget");
+    const toggle   = document.getElementById("cg-chat-toggle");
+    const windowEl = document.getElementById("cg-chat-window");
+    const closeBtn = document.getElementById("cg-chat-close");
+    const form     = document.getElementById("cg-chat-form");
+    const input    = document.getElementById("cg-chat-input");
+    const messages = document.getElementById("cg-chat-messages");
 
-  if (!widget || !toggle || !windowEl || !form || !input || !messages) return;
+    if (!widget || !toggle || !windowEl || !form || !input || !messages) return;
 
-  function appendMessage(text, from = "bot") {
-    const div = document.createElement("div");
-    div.className = "cg-chat-message " + from;
-    div.innerText = text;
-    messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
-  }
+    function appendMessage(text, from = "bot") {
+      const div = document.createElement("div");
+      div.className = "cg-chat-message " + from;
+      div.innerText = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
 
-  toggle.addEventListener("click", () => {
-    windowEl.classList.toggle("open");
-    if (windowEl.classList.contains("open")) {
+    function openChat() {
+      windowEl.classList.add("open");
       input.focus();
     }
-  });
 
-  closeBtn.addEventListener("click", () => {
-    windowEl.classList.remove("open");
-  });
+    function closeChat() {
+      windowEl.classList.remove("open");
+    }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const text = input.value.trim();
-    if (!text) return;
-    appendMessage(text, "user");
-    input.value = "";
+    toggle.addEventListener("click", () => {
+      if (windowEl.classList.contains("open")) {
+        closeChat();
+      } else {
+        openChat();
+      }
+    });
 
-    // fake small delay for bot reply
-    setTimeout(() => {
-      const answer = cgGetInspectionAnswer(text);
-      appendMessage(answer, "bot");
-    }, 300);
-  });
+    closeBtn.addEventListener("click", () => {
+      closeChat();
+    });
+
+    // Close chat on ESC key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeChat();
+      }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, "user");
+      input.value = "";
+
+      // fake small delay for bot reply
+      setTimeout(() => {
+        const answer = cgGetInspectionAnswer(text);
+        appendMessage(answer, "bot");
+      }, 300);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", wireChat);
+  } else {
+    wireChat();
+  }
 })();</script></div></div></main><footer class="footer"><div class="wrapper"><div class="footer__copyright"><footer class="cg-footer"><div class="footer-wrap"><div class="footer-left"><img class="footer-logo" src="/media/logo-cg.png" alt="C&amp;G Certified Home Inspector"><p>© 2025 C&amp;G Certified Home Inspector — Inspecting with Integrity</p></div><div class="footer-right"><a href="tel:+13105056581">📞 (310) 505-6581</a> <a href="sms:+13105056581">💬 Text Us</a> <a href="mailto:Coastalcbms@aol.com">✉️ Email Us</a></div></div></footer></div><button id="backToTop" class="footer__bttop" aria-label="Back to top" title="Back to top"><svg width="20" height="20"><use xlink:href="https://sadmanbob.github.io/assets/svg/svg-map.svg#toparrow"/></svg></button></div></footer><script defer="defer" src="https://sadmanbob.github.io/assets/js/scripts.min.js?v=ffcbea6c02c8178d10092962b235a5b0"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
         for (var i = 0; i < images.length; i++) {
             if (images[i].complete) {
